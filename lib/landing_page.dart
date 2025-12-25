@@ -10,13 +10,18 @@ class LandingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _buildHeroSection(context),
-            _buildAppsSection(context),
-            _buildFooter(),
-          ],
+      body: SelectionArea(
+        child: Focus(
+          autofocus: true,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                _buildHeroSection(context),
+                _buildAppsSection(context),
+                _buildFooter(),
+              ],
+            ),
+          ),
         ),
       ),
     );
