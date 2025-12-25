@@ -1,6 +1,7 @@
 import 'package:apps_yother/widgets/app_card.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
@@ -173,23 +174,104 @@ class LandingPage extends StatelessWidget {
     );
   }
 
+  Future<void> _launchUrl(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (!await launchUrl(uri)) {
+      debugPrint('Could not launch $uri');
+    }
+  }
+
   Widget _buildFooter() {
     return Container(
       width: double.infinity,
       color: const Color(0xFF263238),
-      padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 20),
       child: Column(
         children: [
           Text(
-            'بكل حب ❤️ من مؤسسة شباب الحسين',
-            style: GoogleFonts.cairo(fontSize: 18, color: Colors.white),
+            'تواصل معنا',
+            style: GoogleFonts.cairo(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 32),
+          Wrap(
+            spacing: 40,
+            runSpacing: 20,
+            alignment: WrapAlignment.center,
+            children: [
+              _buildContactItem(
+                icon: Icons.phone,
+                title: 'رقم الهاتف',
+                content: '07601199150',
+                onTap: () => _launchUrl('tel:07601199150'),
+              ),
+              _buildContactItem(
+                icon: Icons.location_on,
+                title: 'العنوان',
+                content:
+                    'العراق - بابل - قضاء الهاشمية\nشارع مركز الشرطة القديم',
+                onTap:
+                    () =>
+                        _launchUrl('https://maps.app.goo.gl/5nyAFBLDeNLYt4KMA'),
+              ),
+            ],
+          ),
+          const SizedBox(height: 60),
+          Divider(color: Colors.white.withValues(alpha: 0.1)),
+          const SizedBox(height: 20),
+          Text(
+            'بكل حب ❤️ من مؤسسة شباب الحسين',
+            style: GoogleFonts.cairo(fontSize: 16, color: Colors.white70),
+          ),
+          const SizedBox(height: 8),
           Text(
             '© ${DateTime.now().year} جميع الحقوق محفوظة',
-            style: GoogleFonts.cairo(fontSize: 14, color: Colors.white54),
+            style: GoogleFonts.cairo(fontSize: 14, color: Colors.white30),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildContactItem({
+    required IconData icon,
+    required String title,
+    required String content,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(16),
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: 0.05),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
+        ),
+        child: Column(
+          children: [
+            Icon(icon, color: const Color(0xFF00C853), size: 32),
+            const SizedBox(height: 12),
+            Text(
+              title,
+              style: GoogleFonts.cairo(fontSize: 16, color: Colors.white70),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              content,
+              style: GoogleFonts.cairo(
+                fontSize: 18,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
       ),
     );
   }
