@@ -71,8 +71,10 @@ class AppCard extends StatelessWidget {
                   child: Hero(
                     tag: title,
                     child: Container(
+                      padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        shape: BoxShape.circle,
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black.withValues(alpha: 0.1),
@@ -81,10 +83,11 @@ class AppCard extends StatelessWidget {
                           ),
                         ],
                       ),
-                      child: CircleAvatar(
-                        radius: 50,
-                        backgroundColor: Colors.white,
-                        backgroundImage: AssetImage(logoPath),
+                      child: Image.asset(
+                        logoPath,
+                        width: 90,
+                        height: 90,
+                        fit: BoxFit.contain,
                       ),
                     ),
                   ),
