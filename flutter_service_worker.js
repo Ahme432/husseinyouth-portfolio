@@ -18,7 +18,7 @@ const RESOURCES = {"flutter.js": "24bc71911b75b5f8135c949e27a2984e",
 "assets/assets/images/foundation_logo.png": "442ac4bad2515868e0f9567693d37efa",
 "assets/assets/images/kawthar_logo.png": "d41ec97f79eaf220d07b2d637354281b",
 "assets/assets/images/bloodbank_logo.png": "e6e578274a6f7a42e2425bb0799b26f4",
-"assets/fonts/MaterialIcons-Regular.otf": "c0ad29d56cfe3890223c02da3c6e0448",
+"assets/fonts/MaterialIcons-Regular.otf": "e867f187f35df9afba806260b2d2d6b9",
 "assets/NOTICES": "5cb88c1f3c2c0515b43ce13284aaf30a",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "33b7d9392238c04c131b6ce224e13711",
 "assets/packages/font_awesome_flutter/lib/fonts/fa-brands-400.ttf": "678922332055b7d06867d646b9163e0b",
@@ -39,9 +39,9 @@ const RESOURCES = {"flutter.js": "24bc71911b75b5f8135c949e27a2984e",
 "canvaskit/canvaskit.js.symbols": "a3c9f77715b642d0437d9c275caba91e",
 "canvaskit/skwasm.js.symbols": "3a4aadf4e8141f284bd524976b1d6bdc",
 "favicon.png": "442ac4bad2515868e0f9567693d37efa",
-"flutter_bootstrap.js": "477ae5323238ab3f9575bd6bf1cf302e",
+"flutter_bootstrap.js": "fe3d260c57b5fe07d414d2bec8b20d9a",
 "version.json": "139d12543d4c4cc12cab5a8dfbffae3f",
-"main.dart.js": "82f3631d488da2515417ce2e20bf9b58"};
+"main.dart.js": "21d7b88b53d1758a194c3b1a54e9d8bb"};
 // The application shell files that are downloaded before a service worker can
 // start.
 const CORE = ["main.dart.js",
