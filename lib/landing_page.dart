@@ -89,7 +89,7 @@ class LandingPage extends StatelessWidget {
       const AppCard(
         title: 'بنك الدم العراقي',
         description:
-            'تطبيق يجمع المتبرعين والمحتاجين في جميع محافظات العراق في واجهة بسيطة لإنقاذ الأرواح. متوفر على أندرويد فقط.',
+            'تطبيق يجمع المتبرعين والمحتاجين في جميع محافظات العراق في واجهة بسيطة لإنقاذ الأرواح. متوفر على أندرويد فقط، وقريبًا على آيفون. يضم أكثر من 1,500 مستخدم.',
         logoPath: 'assets/images/bloodbank_logo.png',
         androidUrl:
             'https://play.google.com/store/apps/details?id=exp.bloodbank',
@@ -98,9 +98,10 @@ class LandingPage extends StatelessWidget {
       const AppCard(
         title: 'سفراء الولاية',
         description:
-            'تطبيق ديني يشمل عدة فئات عمريه لإجراء الدورات القرآنية الصيفية وعدة مسابقات إلكترونية.',
+            'تطبيق ديني يشمل عدة فئات عمريه لإجراء الدورات القرآنية الصيفية وعدة مسابقات إلكترونية. سجل في أول انطلاق له أكثر من 600 مشترك. متوفر على أندرويد فقط، وقريبًا على آيفون.',
         logoPath: 'assets/images/ambassadors_logo.png',
-        androidUrl: '#', // Placeholder for correct link
+        androidUrl:
+            'https://play.google.com/store/apps/details?id=com.mycompany.students',
         // iosUrl: null, // Coming soon
       ),
     ];
