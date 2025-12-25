@@ -8,13 +8,12 @@ class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F5F5),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
-            _buildHeader(),
-            _buildFoundationInfo(),
-            _buildAppsGrid(context),
+            _buildHeroSection(context),
+            _buildAppsSection(context),
             _buildFooter(),
           ],
         ),
@@ -22,31 +21,87 @@ class LandingPage extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader() {
+  Widget _buildHeroSection(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
       decoration: const BoxDecoration(
-        color: Colors.white,
-        border: Border(bottom: BorderSide(color: Colors.black12)),
+        gradient: LinearGradient(
+          colors: [Color(0xFF1B5E20), Color(0xFF004D40)],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
       ),
+      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
       child: Column(
         children: [
-          Image.asset('assets/images/foundation_logo.png', height: 100),
-          const SizedBox(height: 16),
+          Container(
+            padding: const EdgeInsets.all(4),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.3),
+                width: 2,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.2),
+                  blurRadius: 20,
+                  offset: const Offset(0, 10),
+                ),
+              ],
+            ),
+            child: CircleAvatar(
+              radius: 60,
+              backgroundColor: Colors.white,
+              backgroundImage: const AssetImage(
+                'assets/images/foundation_logo.png',
+              ),
+            ),
+          ),
+          const SizedBox(height: 32),
           Text(
             'مؤسسة شباب الحسين',
             style: GoogleFonts.cairo(
-              fontSize: 32,
+              fontSize: 42,
               fontWeight: FontWeight.bold,
-              color: const Color(0xFF1B5E20),
+              color: Colors.white,
+              shadows: [
+                Shadow(
+                  color: Colors.black.withValues(alpha: 0.2),
+                  offset: const Offset(0, 2),
+                  blurRadius: 4,
+                ),
+              ],
             ),
+            textAlign: TextAlign.center,
           ),
+          const SizedBox(height: 16),
           Text(
             'للمساعدات الإنسانية',
             style: GoogleFonts.cairo(
-              fontSize: 24,
-              color: const Color(0xFF2E7D32),
+              fontSize: 28,
+              color: Colors.white.withValues(alpha: 0.9),
+              letterSpacing: 1.2,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 48),
+          Container(
+            constraints: const BoxConstraints(maxWidth: 800),
+            padding: const EdgeInsets.all(32),
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
+            ),
+            child: Text(
+              'مؤسسة خيرية ثقافية تعمل على دعم عشرات العوائل المتعففة والأيتام وسد النقص لديهم في الجانبين الخيري والثقافي.',
+              style: GoogleFonts.cairo(
+                fontSize: 20,
+                height: 1.6,
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.center,
             ),
           ),
         ],
@@ -54,27 +109,7 @@ class LandingPage extends StatelessWidget {
     );
   }
 
-  Widget _buildFoundationInfo() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(32),
-      alignment: Alignment.center,
-      child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 800),
-        child: Text(
-          'مؤسسة خيرية ثقافية تعمل على دعم عشرات العوائل المتعففة والأيتام وسد النقص لديهم في الجانبين الخيري والثقافي.',
-          style: GoogleFonts.cairo(
-            fontSize: 18,
-            height: 1.8,
-            color: Colors.grey[800],
-          ),
-          textAlign: TextAlign.center,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildAppsGrid(BuildContext context) {
+  Widget _buildAppsSection(BuildContext context) {
     final List<Widget> apps = [
       const AppCard(
         title: 'حقيبة الكوثر',
@@ -93,7 +128,6 @@ class LandingPage extends StatelessWidget {
         logoPath: 'assets/images/bloodbank_logo.png',
         androidUrl:
             'https://play.google.com/store/apps/details?id=exp.bloodbank',
-        // iosUrl: null, // Coming soon
       ),
       const AppCard(
         title: 'سفراء الولاية',
@@ -102,17 +136,39 @@ class LandingPage extends StatelessWidget {
         logoPath: 'assets/images/ambassadors_logo.png',
         androidUrl:
             'https://play.google.com/store/apps/details?id=com.mycompany.students',
-        // iosUrl: null, // Coming soon
       ),
     ];
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-      child: Wrap(
-        alignment: WrapAlignment.center,
-        spacing: 20,
-        runSpacing: 20,
-        children: apps,
+    return Container(
+      width: double.infinity,
+      color: const Color(0xFFF5F7FA),
+      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
+      child: Column(
+        children: [
+          Text(
+            'تطبيقاتنا',
+            style: GoogleFonts.cairo(
+              fontSize: 36,
+              fontWeight: FontWeight.bold,
+              color: const Color(0xFF1B5E20),
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 16, bottom: 48),
+            width: 80,
+            height: 4,
+            decoration: BoxDecoration(
+              color: const Color(0xFF00C853),
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+          Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 32,
+            runSpacing: 32,
+            children: apps,
+          ),
+        ],
       ),
     );
   }
@@ -120,12 +176,20 @@ class LandingPage extends StatelessWidget {
   Widget _buildFooter() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(20),
-      color: const Color(0xFF1B5E20),
-      child: Text(
-        '© ${DateTime.now().year} مؤسسة شباب الحسين للمساعدات الإنسانية',
-        style: GoogleFonts.cairo(color: Colors.white70),
-        textAlign: TextAlign.center,
+      color: const Color(0xFF263238),
+      padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+      child: Column(
+        children: [
+          Text(
+            'بكل حب ❤️ من مؤسسة شباب الحسين',
+            style: GoogleFonts.cairo(fontSize: 18, color: Colors.white),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            '© ${DateTime.now().year} جميع الحقوق محفوظة',
+            style: GoogleFonts.cairo(fontSize: 14, color: Colors.white54),
+          ),
+        ],
       ),
     );
   }
