@@ -5,19 +5,22 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'package:apps_yother/widgets/nav_bar.dart'; // Add import
+
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.white, // Clean white background
       body: SelectionArea(
         child: Focus(
           autofocus: true,
           child: SingleChildScrollView(
             child: Column(
               children: [
+                const NavBar(), // Custom Navigation Bar
                 _buildHeroSection(context),
                 _buildInfoSection(context),
                 _buildProgramsSection(context),
@@ -37,123 +40,136 @@ class LandingPage extends StatelessWidget {
   Widget _buildHeroSection(BuildContext context) {
     return Container(
       width: double.infinity,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xFF1B5E20), Color(0xFF004D40)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-      ),
-      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
-      child: Column(
+      color: const Color(0xFF00897B), // Professional Teal
+      child: Stack(
         children: [
-          Container(
-            padding: const EdgeInsets.all(4),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: Colors.white.withValues(alpha: 0.3),
-                width: 2,
+          // Background Overlay Pattern (Optional)
+          Positioned.fill(
+            child: Opacity(
+              opacity: 0.1,
+              child: Image.asset(
+                'assets/images/foundation_logo.png', // Fallback pattern
+                repeat: ImageRepeat.repeat,
+                scale: 4,
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.2),
-                  blurRadius: 20,
-                  offset: const Offset(0, 10),
+            ),
+          ),
+
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 40),
+            constraints: const BoxConstraints(maxWidth: 1200),
+            child: Row(
+              children: [
+                // Text Content (Right Side)
+                Expanded(
+                  flex: 3,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'مؤسسة شباب الحسين',
+                        style: GoogleFonts.cairo(
+                          fontSize: 48,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          height: 1.2,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        'يد عون للخير ونبض للأمل', // Tagline from reference
+                        style: GoogleFonts.cairo(
+                          fontSize: 32,
+                          color: Colors.white.withValues(alpha: 0.9),
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                      Text(
+                        'مؤسسة خيرية ثقافية تعمل على دعم عشرات العوائل المتعففة والأيتام وسد النقص لديهم في الجانبين الخيري والثقافي.',
+                        style: GoogleFonts.cairo(
+                          fontSize: 18,
+                          color: Colors.white.withValues(alpha: 0.8),
+                          height: 1.6,
+                        ),
+                      ),
+                      const SizedBox(height: 48),
+                      Wrap(
+                        spacing: 16,
+                        runSpacing: 16,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white,
+                              foregroundColor: const Color(0xFF00897B),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 32,
+                                vertical: 16,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            child: Text(
+                              'تبرع الآن',
+                              style: GoogleFonts.cairo(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          OutlinedButton(
+                            onPressed:
+                                () =>
+                                    _launchUrl('https://wa.me/+9647601199150'),
+                            style: OutlinedButton.styleFrom(
+                              foregroundColor: Colors.white,
+                              side: const BorderSide(color: Colors.white),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 32,
+                                vertical: 16,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            child: Text(
+                              'تواصل معنا',
+                              style: GoogleFonts.cairo(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
+                // Hero Image (Left Side) - Fallback to Logo or Empty
+                if (MediaQuery.of(context).size.width > 800) ...[
+                  const SizedBox(width: 48),
+                  Expanded(
+                    flex: 2,
+                    child: Center(
+                      child: Container(
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.1),
+                          shape: BoxShape.circle,
+                        ),
+                        child: Image.asset(
+                          'assets/images/foundation_logo.png',
+                          height: 300,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ],
             ),
-            child: CircleAvatar(
-              radius: 60,
-              backgroundColor: Colors.white,
-              backgroundImage: const AssetImage(
-                'assets/images/foundation_logo.png',
-              ),
-            ),
-          ),
-          const SizedBox(height: 32),
-          Text(
-            'مؤسسة شباب الحسين',
-            style: GoogleFonts.cairo(
-              fontSize: 42,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              shadows: [
-                Shadow(
-                  color: Colors.black.withValues(alpha: 0.2),
-                  offset: const Offset(0, 2),
-                  blurRadius: 4,
-                ),
-              ],
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'رقم التسجيل : 1IK2507014 ضمن منظمات المجتمع المدني',
-            style: GoogleFonts.cairo(
-              fontSize: 16,
-              color: Colors.white70,
-              fontWeight: FontWeight.bold,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 16),
-          Text(
-            'للمساعدات الإنسانية',
-            style: GoogleFonts.cairo(
-              fontSize: 28,
-              color: Colors.white.withValues(alpha: 0.9),
-              letterSpacing: 1.2,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 48),
-          Container(
-            constraints: const BoxConstraints(maxWidth: 800),
-            padding: const EdgeInsets.all(32),
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(24),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
-            ),
-            child: Text(
-              'مؤسسة خيرية ثقافية تعمل على دعم عشرات العوائل المتعففة والأيتام وسد النقص لديهم في الجانبين الخيري والثقافي.',
-              style: GoogleFonts.cairo(
-                fontSize: 20,
-                height: 1.6,
-                color: Colors.white,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          const SizedBox(height: 32),
-          Wrap(
-            spacing: 24,
-            runSpacing: 24,
-            alignment: WrapAlignment.center,
-            children: [
-              _buildSocialIcon(
-                FontAwesomeIcons.youtube,
-                'https://youtube.com/@hussein.youth1?si=pYYUjv3ZejsMIdWv',
-              ),
-              _buildSocialIcon(
-                FontAwesomeIcons.facebook,
-                'https://www.facebook.com/hussein.youth?mibextid=ZbWKwL',
-              ),
-              _buildSocialIcon(
-                FontAwesomeIcons.instagram,
-                'https://www.instagram.com/hussein.youth?igsh=MmtlY3JqeDYxeDk1',
-              ),
-              _buildSocialIcon(
-                FontAwesomeIcons.telegram,
-                'https://t.me/ShababAlhussein',
-              ),
-              _buildSocialIcon(
-                FontAwesomeIcons.whatsapp,
-                'https://wa.me/+9647601199150',
-              ),
-            ],
           ),
         ],
       ),
@@ -167,23 +183,7 @@ class LandingPage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
       child: Column(
         children: [
-          Text(
-            'موارد المؤسسة',
-            style: GoogleFonts.cairo(
-              fontSize: 36,
-              fontWeight: FontWeight.bold,
-              color: const Color(0xFF1B5E20),
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 16, bottom: 48),
-            width: 80,
-            height: 4,
-            decoration: BoxDecoration(
-              color: const Color(0xFF00C853),
-              borderRadius: BorderRadius.circular(2),
-            ),
-          ),
+          _buildSectionHeader('موارد المؤسسة'),
           Container(
             constraints: const BoxConstraints(maxWidth: 800),
             margin: const EdgeInsets.only(bottom: 48),
@@ -338,23 +338,7 @@ class LandingPage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
       child: Column(
         children: [
-          Text(
-            'مواكبة التطور',
-            style: GoogleFonts.cairo(
-              fontSize: 36,
-              fontWeight: FontWeight.bold,
-              color: const Color(0xFF1B5E20),
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 16, bottom: 48),
-            width: 80,
-            height: 4,
-            decoration: BoxDecoration(
-              color: const Color(0xFF00C853),
-              borderRadius: BorderRadius.circular(2),
-            ),
-          ),
+          _buildSectionHeader('مواكبة التطور'),
           Container(
             constraints: const BoxConstraints(maxWidth: 800),
             margin: const EdgeInsets.only(bottom: 48),
@@ -379,6 +363,30 @@ class LandingPage extends StatelessWidget {
     );
   }
 
+  Widget _buildSectionHeader(String title) {
+    return Column(
+      children: [
+        Text(
+          title,
+          style: GoogleFonts.cairo(
+            fontSize: 36,
+            fontWeight: FontWeight.bold,
+            color: const Color(0xFF00897B),
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.only(top: 16, bottom: 48),
+          width: 80,
+          height: 4,
+          decoration: BoxDecoration(
+            color: const Color(0xFF00ACC1),
+            borderRadius: BorderRadius.circular(2),
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _buildProgramsSection(BuildContext context) {
     return Container(
       width: double.infinity,
@@ -386,23 +394,7 @@ class LandingPage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
       child: Column(
         children: [
-          Text(
-            'برامجنا',
-            style: GoogleFonts.cairo(
-              fontSize: 36,
-              fontWeight: FontWeight.bold,
-              color: const Color(0xFF1B5E20),
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 16, bottom: 48),
-            width: 80,
-            height: 4,
-            decoration: BoxDecoration(
-              color: const Color(0xFF00C853),
-              borderRadius: BorderRadius.circular(2),
-            ),
-          ),
+          _buildSectionHeader('برامجنا'),
           Container(
             constraints: const BoxConstraints(maxWidth: 800),
             margin: const EdgeInsets.only(bottom: 48),
@@ -502,23 +494,7 @@ class LandingPage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
       child: Column(
         children: [
-          Text(
-            'من نحن',
-            style: GoogleFonts.cairo(
-              fontSize: 36,
-              fontWeight: FontWeight.bold,
-              color: const Color(0xFF1B5E20),
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 16, bottom: 48),
-            width: 80,
-            height: 4,
-            decoration: BoxDecoration(
-              color: const Color(0xFF00C853),
-              borderRadius: BorderRadius.circular(2),
-            ),
-          ),
+          _buildSectionHeader('من نحن'),
           Wrap(
             spacing: 32,
             runSpacing: 32,
@@ -610,23 +586,7 @@ class LandingPage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
       child: Column(
         children: [
-          Text(
-            'المصاريف',
-            style: GoogleFonts.cairo(
-              fontSize: 36,
-              fontWeight: FontWeight.bold,
-              color: const Color(0xFF1B5E20),
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 16, bottom: 48),
-            width: 80,
-            height: 4,
-            decoration: BoxDecoration(
-              color: const Color(0xFF00C853),
-              borderRadius: BorderRadius.circular(2),
-            ),
-          ),
+          _buildSectionHeader('المصاريف'),
           Container(
             constraints: const BoxConstraints(maxWidth: 800),
             padding: const EdgeInsets.all(24),
@@ -717,23 +677,7 @@ class LandingPage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
       child: Column(
         children: [
-          Text(
-            'ساهم معنا',
-            style: GoogleFonts.cairo(
-              fontSize: 36,
-              fontWeight: FontWeight.bold,
-              color: const Color(0xFF1B5E20),
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 16, bottom: 48),
-            width: 80,
-            height: 4,
-            decoration: BoxDecoration(
-              color: const Color(0xFF00C853),
-              borderRadius: BorderRadius.circular(2),
-            ),
-          ),
+          _buildSectionHeader('ساهم معنا'),
           Wrap(
             spacing: 32,
             runSpacing: 32,
@@ -953,6 +897,37 @@ class LandingPage extends StatelessWidget {
               ),
             ],
           ),
+          const SizedBox(height: 48),
+
+          // Social Icons
+          Wrap(
+            spacing: 24,
+            runSpacing: 24,
+            alignment: WrapAlignment.center,
+            children: [
+              _buildSocialIcon(
+                FontAwesomeIcons.youtube,
+                'https://youtube.com/@hussein.youth1?si=pYYUjv3ZejsMIdWv',
+              ),
+              _buildSocialIcon(
+                FontAwesomeIcons.facebook,
+                'https://www.facebook.com/hussein.youth?mibextid=ZbWKwL',
+              ),
+              _buildSocialIcon(
+                FontAwesomeIcons.instagram,
+                'https://www.instagram.com/hussein.youth?igsh=MmtlY3JqeDYxeDk1',
+              ),
+              _buildSocialIcon(
+                FontAwesomeIcons.telegram,
+                'https://t.me/ShababAlhussein',
+              ),
+              _buildSocialIcon(
+                FontAwesomeIcons.whatsapp,
+                'https://wa.me/+9647601199150',
+              ),
+            ],
+          ),
+
           const SizedBox(height: 60),
           Divider(color: Colors.white.withValues(alpha: 0.1)),
           const SizedBox(height: 20),
