@@ -5,7 +5,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'package:apps_yother/widgets/nav_bar.dart'; // Add import
+import 'package:apps_yother/widgets/nav_bar.dart';
+import 'package:apps_yother/widgets/top_bar.dart'; // Add TopBar import
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -49,13 +50,14 @@ class _LandingPageState extends State<LandingPage> {
             controller: _scrollController,
             child: Column(
               children: [
+                const TopBar(), // New Top Bar
                 NavBar(
                   onHomeTap: () => _scrollToSection(_homeKey),
                   onAboutTap: () => _scrollToSection(_aboutKey),
                   onProgramsTap: () => _scrollToSection(_programsKey),
                   onContactTap: () => _scrollToSection(_contactKey),
                   onDonateTap: () => _scrollToSection(_donateKey),
-                ), // Custom Navigation Bar
+                ),
                 Container(key: _homeKey, child: _buildHeroSection(context)),
                 Container(key: _aboutKey, child: _buildInfoSection(context)),
                 Container(
@@ -202,7 +204,7 @@ class _LandingPageState extends State<LandingPage> {
                         ),
                         child: ClipOval(
                           child: Image.asset(
-                            'assets/images/hero_illustration.png',
+                            'assets/images/hero_children.png', // Updated Image
                             height: 400,
                             width: 400,
                             fit: BoxFit.cover,
