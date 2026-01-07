@@ -81,142 +81,106 @@ class _LandingPageState extends State<LandingPage> {
   }
 
   Widget _buildHeroSection(BuildContext context) {
-    return ClipPath(
-      clipper: const _HeroClipper(),
-      child: Container(
-        width: double.infinity,
-        constraints: const BoxConstraints(
-          minHeight: 600,
-        ), // Ensure minimum height
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/hero_children_wide.png'),
-            fit: BoxFit.cover,
-            alignment: Alignment.topCenter,
-          ),
-        ),
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.centerRight,
-              end: Alignment.centerLeft,
-              colors: [
-                const Color(
-                  0xFF00897B,
-                ).withValues(alpha: 0.95), // Solid Teal on text side
-                const Color(0xFF00897B).withValues(alpha: 0.7),
-                const Color(0xFF00897B).withValues(alpha: 0.3), // Fading out
-              ],
-            ),
-          ),
-          padding: const EdgeInsets.only(bottom: 80), // Padding for curve
-          child: Container(
-            padding: const EdgeInsets.fromLTRB(40, 100, 40, 80),
-            constraints: const BoxConstraints(maxWidth: 1200),
-            child: Row(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // Check if we are on a "mobile" width or if the aspect ratio would be too tall
+        final bool isMobile = constraints.maxWidth < 900;
+
+        if (isMobile) {
+          // Mobile Layout: Stacked (Image Top, Text Bottom)
+          return Container(
+            color: const Color(0xFF00897B),
+            child: Column(
               children: [
-                // Text Content
-                Expanded(
-                  flex: 3,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
-                        ),
+                // 16:9 Image Container
+                Stack(
+                  children: [
+                    AspectRatio(
+                      aspectRatio: 16 / 9,
+                      child: Image.asset(
+                        'assets/images/hero_children_wide.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    // Gradient overlay at bottom of image to blend
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      height: 50,
+                      child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.white.withValues(alpha: 0.2),
-                          borderRadius: BorderRadius.circular(30),
-                          border: Border.all(
-                            color: Colors.white.withValues(alpha: 0.3),
-                          ),
-                        ),
-                        child: Text(
-                          '✨ معاً نصنع الأمل',
-                          style: GoogleFonts.cairo(
-                            fontSize: 16,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Colors.transparent,
+                              const Color(0xFF00897B),
+                            ],
                           ),
                         ),
                       ),
-                      const SizedBox(height: 24),
+                    ),
+                  ],
+                ),
+                // Text Content
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 32,
+                  ),
+                  child: Column(
+                    children: [
                       Text(
                         'مؤسسة شباب الحسين',
+                        textAlign: TextAlign.center,
                         style: GoogleFonts.cairo(
-                          fontSize: 64, // Massive Impactful Font
+                          fontSize: 42,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                           height: 1.1,
-                          shadows: [
-                            Shadow(
-                              offset: const Offset(0, 4),
-                              blurRadius: 20,
-                              color: Colors.black.withValues(alpha: 0.3),
-                            ),
-                          ],
                         ),
                       ),
                       const SizedBox(height: 16),
                       Text(
                         'يد عون للخير ونبض للأمل',
+                        textAlign: TextAlign.center,
                         style: GoogleFonts.cairo(
-                          fontSize: 36,
-                          color: Colors.white,
+                          fontSize: 24,
+                          color: Colors.white.withValues(alpha: 0.9),
                           fontWeight: FontWeight.w600,
-                          shadows: [
-                            Shadow(
-                              offset: const Offset(0, 2),
-                              blurRadius: 10,
-                              color: Colors.black.withValues(alpha: 0.3),
-                            ),
-                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        'مؤسسة خيرية ثقافية تعمل على دعم عشرات العوائل المتعففة والأيتام وسد النقص لديهم في الجانبين الخيري والثقافي.',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.cairo(
+                          fontSize: 16,
+                          color: Colors.white.withValues(alpha: 0.85),
+                          height: 1.6,
                         ),
                       ),
                       const SizedBox(height: 32),
-                      Text(
-                        'مؤسسة خيرية ثقافية تعمل على دعم عشرات العوائل المتعففة والأيتام وسد النقص لديهم في الجانبين الخيري والثقافي.',
-                        style: GoogleFonts.cairo(
-                          fontSize: 20,
-                          color: Colors.white.withValues(alpha: 0.95),
-                          height: 1.6,
-                          shadows: [
-                            Shadow(
-                              blurRadius: 5,
-                              color: Colors.black.withValues(alpha: 0.5),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 48),
                       Wrap(
-                        spacing: 20,
-                        runSpacing: 20,
+                        spacing: 16,
+                        runSpacing: 16,
+                        alignment: WrapAlignment.center,
                         children: [
                           ElevatedButton(
                             onPressed: () => _scrollToSection(_donateKey),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white,
                               foregroundColor: const Color(0xFF00897B),
-                              elevation: 10,
-                              shadowColor: const Color(
-                                0xFF00695C,
-                              ).withValues(alpha: 0.5),
                               padding: const EdgeInsets.symmetric(
-                                horizontal: 48,
-                                vertical: 24,
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
+                                horizontal: 32,
+                                vertical: 16,
                               ),
                             ),
                             child: Text(
                               'تبرع الآن',
                               style: GoogleFonts.cairo(
-                                fontSize: 20,
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -227,25 +191,16 @@ class _LandingPageState extends State<LandingPage> {
                                     _launchUrl('https://wa.me/+9647601199150'),
                             style: OutlinedButton.styleFrom(
                               foregroundColor: Colors.white,
-                              side: const BorderSide(
-                                color: Colors.white,
-                                width: 2.5,
-                              ),
+                              side: const BorderSide(color: Colors.white),
                               padding: const EdgeInsets.symmetric(
-                                horizontal: 48,
-                                vertical: 24,
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                              backgroundColor: Colors.black.withValues(
-                                alpha: 0.1,
+                                horizontal: 32,
+                                vertical: 16,
                               ),
                             ),
                             child: Text(
                               'تواصل معنا',
                               style: GoogleFonts.cairo(
-                                fontSize: 20,
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -255,15 +210,194 @@ class _LandingPageState extends State<LandingPage> {
                     ],
                   ),
                 ),
-
-                // Spacer for image visibility
-                if (MediaQuery.of(context).size.width > 800)
-                  const Spacer(flex: 2),
+                // Bottom Curve
+                ClipPath(
+                  clipper: const _HeroClipper(),
+                  child: Container(
+                    height: 40,
+                    width: double.infinity,
+                    color: Colors.white,
+                  ),
+                ),
               ],
             ),
-          ),
-        ),
-      ),
+          );
+        } else {
+          // Desktop Layout: Full Width Background with Enforced Aspect Ratio (or min height)
+          // To strictly maintain 16:9 on desktop, we use AspectRatio wrapper
+          return ClipPath(
+            clipper: const _HeroClipper(),
+            child: AspectRatio(
+              aspectRatio: 16 / 9, // Enforce 16:9 on desktop
+              child: Container(
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/hero_children_wide.png'),
+                    fit: BoxFit.cover, // Will cover perfectly if ratio matches
+                    alignment: Alignment.center,
+                  ),
+                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.centerRight,
+                      end: Alignment.centerLeft,
+                      colors: [
+                        const Color(0xFF00897B).withValues(alpha: 0.95),
+                        const Color(0xFF00897B).withValues(alpha: 0.7),
+                        const Color(0xFF00897B).withValues(alpha: 0.1),
+                      ],
+                    ),
+                  ),
+                  child: Center(
+                    // Center content vertically
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 60),
+                      constraints: const BoxConstraints(maxWidth: 1400),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 4,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'مؤسسة شباب الحسين',
+                                  style: GoogleFonts.cairo(
+                                    fontSize: 72,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    height: 1.1,
+                                    shadows: [
+                                      Shadow(
+                                        offset: const Offset(0, 4),
+                                        blurRadius: 20,
+                                        color: Colors.black.withValues(
+                                          alpha: 0.3,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 24),
+                                Text(
+                                  'يد عون للخير ونبض للأمل',
+                                  style: GoogleFonts.cairo(
+                                    fontSize: 40,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                    shadows: [
+                                      Shadow(
+                                        offset: const Offset(0, 2),
+                                        blurRadius: 10,
+                                        color: Colors.black.withValues(
+                                          alpha: 0.3,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 32),
+                                SizedBox(
+                                  width: 700,
+                                  child: Text(
+                                    'مؤسسة خيرية ثقافية تعمل على دعم عشرات العوائل المتعففة والأيتام وسد النقص لديهم في الجانبين الخيري والثقافي.',
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 22,
+                                      color: Colors.white.withValues(
+                                        alpha: 0.95,
+                                      ),
+                                      height: 1.6,
+                                      shadows: [
+                                        Shadow(
+                                          blurRadius: 5,
+                                          color: Colors.black.withValues(
+                                            alpha: 0.5,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 56),
+                                Wrap(
+                                  spacing: 24,
+                                  runSpacing: 24,
+                                  children: [
+                                    ElevatedButton(
+                                      onPressed:
+                                          () => _scrollToSection(_donateKey),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.white,
+                                        foregroundColor: const Color(
+                                          0xFF00897B,
+                                        ),
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 48,
+                                          vertical: 24,
+                                        ),
+                                        elevation: 8,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            16,
+                                          ),
+                                        ),
+                                      ),
+                                      child: Text(
+                                        'تبرع الآن',
+                                        style: GoogleFonts.cairo(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    OutlinedButton(
+                                      onPressed:
+                                          () => _launchUrl(
+                                            'https://wa.me/+9647601199150',
+                                          ),
+                                      style: OutlinedButton.styleFrom(
+                                        foregroundColor: Colors.white,
+                                        side: const BorderSide(
+                                          color: Colors.white,
+                                          width: 2.5,
+                                        ),
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 48,
+                                          vertical: 24,
+                                        ),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            16,
+                                          ),
+                                        ),
+                                      ),
+                                      child: Text(
+                                        'تواصل معنا',
+                                        style: GoogleFonts.cairo(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Spacer(flex: 3), // Space for image visibility
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        }
+      },
     );
   }
 
