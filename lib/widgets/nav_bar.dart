@@ -3,7 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class NavBar extends StatelessWidget {
-  const NavBar({super.key});
+  final VoidCallback onHomeTap;
+  final VoidCallback onAboutTap;
+  final VoidCallback onProgramsTap;
+  final VoidCallback onContactTap;
+  final VoidCallback onDonateTap;
+
+  const NavBar({
+    super.key,
+    required this.onHomeTap,
+    required this.onAboutTap,
+    required this.onProgramsTap,
+    required this.onContactTap,
+    required this.onDonateTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -51,13 +64,13 @@ class NavBar extends StatelessWidget {
           if (MediaQuery.of(context).size.width > 800)
             Row(
               children: [
-                _NavLink(title: 'الرئيسية', onTap: () {}),
-                _NavLink(title: 'عن المؤسسة', onTap: () {}),
-                _NavLink(title: 'البرامج', onTap: () {}),
-                _NavLink(title: 'تواصل معنا', onTap: () {}),
+                _NavLink(title: 'الرئيسية', onTap: onHomeTap),
+                _NavLink(title: 'عن المؤسسة', onTap: onAboutTap),
+                _NavLink(title: 'البرامج', onTap: onProgramsTap),
+                _NavLink(title: 'تواصل معنا', onTap: onContactTap),
                 const SizedBox(width: 24),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: onDonateTap,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF00897B),
                     foregroundColor: Colors.white,

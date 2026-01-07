@@ -7,8 +7,36 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'package:apps_yother/widgets/nav_bar.dart'; // Add import
 
-class LandingPage extends StatelessWidget {
+class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
+
+  @override
+  State<LandingPage> createState() => _LandingPageState();
+}
+
+class _LandingPageState extends State<LandingPage> {
+  final ScrollController _scrollController = ScrollController();
+  final GlobalKey _homeKey = GlobalKey();
+  final GlobalKey _aboutKey = GlobalKey();
+  final GlobalKey _programsKey = GlobalKey();
+  final GlobalKey _contactKey = GlobalKey();
+  final GlobalKey _donateKey = GlobalKey();
+
+  void _scrollToSection(GlobalKey key) {
+    if (key.currentContext != null) {
+      Scrollable.ensureVisible(
+        key.currentContext!,
+        duration: const Duration(milliseconds: 600),
+        curve: Curves.easeInOut,
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,17 +46,30 @@ class LandingPage extends StatelessWidget {
         child: Focus(
           autofocus: true,
           child: SingleChildScrollView(
+            controller: _scrollController,
             child: Column(
               children: [
-                const NavBar(), // Custom Navigation Bar
-                _buildHeroSection(context),
-                _buildInfoSection(context),
-                _buildProgramsSection(context),
+                NavBar(
+                  onHomeTap: () => _scrollToSection(_homeKey),
+                  onAboutTap: () => _scrollToSection(_aboutKey),
+                  onProgramsTap: () => _scrollToSection(_programsKey),
+                  onContactTap: () => _scrollToSection(_contactKey),
+                  onDonateTap: () => _scrollToSection(_donateKey),
+                ), // Custom Navigation Bar
+                Container(key: _homeKey, child: _buildHeroSection(context)),
+                Container(key: _aboutKey, child: _buildInfoSection(context)),
+                Container(
+                  key: _programsKey,
+                  child: _buildProgramsSection(context),
+                ),
                 _buildFundingSection(context),
                 _buildTechnologySection(context),
-                _buildDonationSection(context),
+                Container(
+                  key: _donateKey,
+                  child: _buildDonationSection(context),
+                ),
                 _buildFinancialSection(context),
-                _buildFooter(),
+                Container(key: _contactKey, child: _buildFooter()),
               ],
             ),
           ),
@@ -99,7 +140,7 @@ class LandingPage extends StatelessWidget {
                         runSpacing: 16,
                         children: [
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () => _scrollToSection(_donateKey),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white,
                               foregroundColor: const Color(0xFF00897B),
@@ -159,10 +200,13 @@ class LandingPage extends StatelessWidget {
                           color: Colors.white.withValues(alpha: 0.1),
                           shape: BoxShape.circle,
                         ),
-                        child: Image.asset(
-                          'assets/images/foundation_logo.png',
-                          height: 300,
-                          fit: BoxFit.contain,
+                        child: ClipOval(
+                          child: Image.asset(
+                            'assets/images/hero_illustration.png',
+                            height: 400,
+                            width: 400,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
