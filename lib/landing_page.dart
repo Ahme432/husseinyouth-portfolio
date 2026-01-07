@@ -1,5 +1,7 @@
 import 'package:apps_yother/widgets/app_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -17,7 +19,12 @@ class LandingPage extends StatelessWidget {
             child: Column(
               children: [
                 _buildHeroSection(context),
-                _buildAppsSection(context),
+                _buildInfoSection(context),
+                _buildProgramsSection(context),
+                _buildFundingSection(context),
+                _buildTechnologySection(context),
+                _buildDonationSection(context),
+                _buildFinancialSection(context),
                 _buildFooter(),
               ],
             ),
@@ -81,6 +88,16 @@ class LandingPage extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
+          const SizedBox(height: 8),
+          Text(
+            'رقم التسجيل : 1IK2507014 ضمن منظمات المجتمع المدني',
+            style: GoogleFonts.cairo(
+              fontSize: 16,
+              color: Colors.white70,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+          ),
           const SizedBox(height: 16),
           Text(
             'للمساعدات الإنسانية',
@@ -110,17 +127,187 @@ class LandingPage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
+          const SizedBox(height: 32),
+          Wrap(
+            spacing: 24,
+            runSpacing: 24,
+            alignment: WrapAlignment.center,
+            children: [
+              _buildSocialIcon(
+                FontAwesomeIcons.youtube,
+                'https://youtube.com/@hussein.youth1?si=pYYUjv3ZejsMIdWv',
+              ),
+              _buildSocialIcon(
+                FontAwesomeIcons.facebook,
+                'https://www.facebook.com/hussein.youth?mibextid=ZbWKwL',
+              ),
+              _buildSocialIcon(
+                FontAwesomeIcons.instagram,
+                'https://www.instagram.com/hussein.youth?igsh=MmtlY3JqeDYxeDk1',
+              ),
+              _buildSocialIcon(
+                FontAwesomeIcons.telegram,
+                'https://t.me/ShababAlhussein',
+              ),
+              _buildSocialIcon(
+                FontAwesomeIcons.whatsapp,
+                'https://wa.me/+9647601199150',
+              ),
+            ],
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildAppsSection(BuildContext context) {
+  Widget _buildFundingSection(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      color: const Color(0xFFF5F7FA),
+      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
+      child: Column(
+        children: [
+          Text(
+            'موارد المؤسسة',
+            style: GoogleFonts.cairo(
+              fontSize: 36,
+              fontWeight: FontWeight.bold,
+              color: const Color(0xFF1B5E20),
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 16, bottom: 48),
+            width: 80,
+            height: 4,
+            decoration: BoxDecoration(
+              color: const Color(0xFF00C853),
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+          Container(
+            constraints: const BoxConstraints(maxWidth: 800),
+            margin: const EdgeInsets.only(bottom: 48),
+            child: Text(
+              'وارد المؤسسة يعتمد على ٣ موارد رئيسية:',
+              style: GoogleFonts.cairo(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.black87,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Wrap(
+            spacing: 32,
+            runSpacing: 32,
+            alignment: WrapAlignment.center,
+            children: [
+              _buildFundingCard(
+                title: 'أولاً: الختمات الشهرية',
+                content:
+                    'هو البرنامج الأكبر لدينا، حيث يوجد أكثر من 700 متبرع يقرأون القرآن شهريًا، ويهدون هذه القراءة للمتبرعين والمشاركين. يحصل المشتركون على 60 ختمة في الشهر الواحد. الاشتراك 4000 د.ع شهرياً.',
+                icon: FontAwesomeIcons.bookQuran,
+                color: const Color(0xFFE8F5E9),
+              ),
+              _buildFundingCard(
+                title: 'ثانياً: الصناديق',
+                content:
+                    'صندوق الإمام السجاد (عليه السلام)، يحصل المشتركون الذين يمتلكون أحد صناديق المؤسسة أيضًا على 60 ختمة في الشهر الواحد.',
+                icon: FontAwesomeIcons.boxOpen,
+                color: const Color(0xFFE3F2FD),
+                action: Column(
+                  children: [
+                    const SizedBox(height: 16),
+                    OutlinedButton.icon(
+                      onPressed: () => _launchUrl('tel:07601199150'),
+                      icon: const Icon(Icons.phone),
+                      label: Text(
+                        'اطلب صندوق الان',
+                        style: GoogleFonts.cairo(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              _buildFundingCard(
+                title: 'ثالثاً: الاشتراكات الثابتة',
+                content:
+                    'يشارك بعض الإخوة في برنامج معين بشكل مستمر، وتخصص هذه التبرعات لسد احتياجات العوائل من نفس المبلغ المخصص لهذا البرنامج.',
+                icon: FontAwesomeIcons.handHoldingHand,
+                color: const Color(0xFFFFF3E0),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFundingCard({
+    required String title,
+    required String content,
+    required IconData icon,
+    required Color color,
+    Widget? action,
+  }) {
+    return Container(
+      width: 350,
+      padding: const EdgeInsets.all(32),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: color,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: FaIcon(icon, size: 32, color: Colors.black87),
+          ),
+          const SizedBox(height: 24),
+          Text(
+            title,
+            style: GoogleFonts.cairo(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 16),
+          Text(
+            content,
+            style: GoogleFonts.cairo(
+              fontSize: 16,
+              height: 1.6,
+              color: Colors.black54,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          if (action != null) action,
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTechnologySection(BuildContext context) {
+    // Reusing existing app cards logic but wrapping in new section
     final List<Widget> apps = [
       const AppCard(
         title: 'حقيبة الكوثر',
         description:
-            'تطبيق ديني شيعي متكامل، والتطوير فيه مستمر. متوفر على آيفون وأندرويد، وله أكثر من 1,500 مستخدم.',
+            'تطبيق ديني شيعي متكامل، يحتوي على عدة أدعية وزيارات. متوفر على آيفون وأندرويد.',
         logoPath: 'assets/images/kawthar_logo.png',
         androidUrl:
             'https://play.google.com/store/apps/details?id=com.husseinyouth.khatma',
@@ -130,7 +317,7 @@ class LandingPage extends StatelessWidget {
       const AppCard(
         title: 'بنك الدم العراقي',
         description:
-            'تطبيق يجمع المتبرعين والمحتاجين في جميع محافظات العراق في واجهة بسيطة لإنقاذ الأرواح. متوفر على أندرويد فقط، وقريبًا على آيفون. يضم أكثر من 1,500 مستخدم.',
+            'الأول من نوعه لتسهيل عملية التبرع بالدم في الحالات الصحية الحرجة. يجمع المتبرعين والمحتاجين في جميع محافظات العراق.',
         logoPath: 'assets/images/bloodbank_logo.png',
         androidUrl:
             'https://play.google.com/store/apps/details?id=exp.bloodbank',
@@ -138,7 +325,7 @@ class LandingPage extends StatelessWidget {
       const AppCard(
         title: 'سفراء الولاية',
         description:
-            'تطبيق ديني يشمل عدة فئات عمريه لإجراء الدورات القرآنية الصيفية وعدة مسابقات إلكترونية. سجل في أول انطلاق له أكثر من 600 مشترك. متوفر على أندرويد فقط، وقريبًا على آيفون.',
+            'لإقامة الدورات القرآنية الصيفية السنوية التي تحتضن أكثر من 600 طالب. يشمل مسابقات إلكترونية.',
         logoPath: 'assets/images/ambassadors_logo.png',
         androidUrl:
             'https://play.google.com/store/apps/details?id=com.mycompany.students',
@@ -147,12 +334,176 @@ class LandingPage extends StatelessWidget {
 
     return Container(
       width: double.infinity,
+      color: Colors.white,
+      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
+      child: Column(
+        children: [
+          Text(
+            'مواكبة التطور',
+            style: GoogleFonts.cairo(
+              fontSize: 36,
+              fontWeight: FontWeight.bold,
+              color: const Color(0xFF1B5E20),
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 16, bottom: 48),
+            width: 80,
+            height: 4,
+            decoration: BoxDecoration(
+              color: const Color(0xFF00C853),
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+          Container(
+            constraints: const BoxConstraints(maxWidth: 800),
+            margin: const EdgeInsets.only(bottom: 48),
+            child: Text(
+              'من أولى اهتمامات إدارة المؤسسة مواكبة التطور الحاصل في العالم، حيث أطلقت المؤسسة مؤخرًا عدة تطبيقات وأبقت تطوراً في النظام الداخلي يعتمد على برنامج خاص لتسجيل جميع التبرعات والصرفيات.',
+              style: GoogleFonts.cairo(
+                fontSize: 18,
+                height: 1.6,
+                color: Colors.black87,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 32,
+            runSpacing: 32,
+            children: apps,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProgramsSection(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      color: Colors.white,
+      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
+      child: Column(
+        children: [
+          Text(
+            'برامجنا',
+            style: GoogleFonts.cairo(
+              fontSize: 36,
+              fontWeight: FontWeight.bold,
+              color: const Color(0xFF1B5E20),
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 16, bottom: 48),
+            width: 80,
+            height: 4,
+            decoration: BoxDecoration(
+              color: const Color(0xFF00C853),
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+          Container(
+            constraints: const BoxConstraints(maxWidth: 800),
+            margin: const EdgeInsets.only(bottom: 48),
+            child: Text(
+              'هذه البرامج ثابتة لدعم العوائل المتعففة والأيتام المسجلين لدينا، حيث يتم شمول العوائل في بعض هذه البرامج أو جميعها وفقا لاحتياجات العائلة. بعد الكشف على العائلة ميدانيا والتأكد من صحة احتياجاتها، تشرع المؤسسة في توفيرها من خلال التبرعات الموجودة.',
+              style: GoogleFonts.cairo(
+                fontSize: 18,
+                height: 1.6,
+                color: Colors.black87,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          Wrap(
+            spacing: 24,
+            runSpacing: 24,
+            alignment: WrapAlignment.center,
+            children: [
+              _buildProgramCard(
+                'برنامج المساعدات المالية',
+                FontAwesomeIcons.handHoldingDollar,
+              ),
+              _buildProgramCard(
+                'برنامج المساعدات الصحية',
+                FontAwesomeIcons.heartPulse,
+              ),
+              _buildProgramCard(
+                'برنامج المساعدات العينية',
+                FontAwesomeIcons.boxOpen,
+              ),
+              _buildProgramCard('برنامج البناء', FontAwesomeIcons.trowelBricks),
+              _buildProgramCard('برنامج الزواج', FontAwesomeIcons.ring),
+              _buildProgramCard(
+                'برنامج الثقافة',
+                FontAwesomeIcons.bookOpenReader,
+              ),
+              _buildProgramCard(
+                'التأهيل والاكتفاء الذاتي',
+                FontAwesomeIcons.scissors,
+              ),
+              _buildProgramCard(
+                'الدورات الصيفية (سفراء الولاية)',
+                FontAwesomeIcons.graduationCap,
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProgramCard(String title, IconData icon) {
+    return Container(
+      width: 280,
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.grey.shade200),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: const Color(0xFFE8F5E9),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: FaIcon(icon, size: 28, color: const Color(0xFF1B5E20)),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            title,
+            style: GoogleFonts.cairo(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInfoSection(BuildContext context) {
+    return Container(
+      width: double.infinity,
       color: const Color(0xFFF5F7FA),
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
       child: Column(
         children: [
           Text(
-            'تطبيقاتنا',
+            'من نحن',
             style: GoogleFonts.cairo(
               fontSize: 36,
               fontWeight: FontWeight.bold,
@@ -169,13 +520,374 @@ class LandingPage extends StatelessWidget {
             ),
           ),
           Wrap(
-            alignment: WrapAlignment.center,
             spacing: 32,
             runSpacing: 32,
-            children: apps,
+            alignment: WrapAlignment.center,
+            children: [
+              _buildInfoCard(
+                title: 'نظرة عامة',
+                content:
+                    'مؤسسة خيرية انطلقت عام ٢٠١٥ بجهود بسيطة وبمبلغ زهيد، تعنى بنشر الثقافة بين أفراد المجتمع وكذلك توفير احتياجات الأيتام والمحتاجين ماديًا وعينيًا، ويتم دعم المؤسسة من بعض الإخوة المؤمنين ومن خلال برامجها المتعددة.',
+                icon: FontAwesomeIcons.landmark,
+              ),
+              _buildInfoCard(
+                title: 'رؤيتنا',
+                content:
+                    'نسعى لسد احتياجات الأيتام والمحتاجين وتوفير فرص العمل لهم من خلال الورش التدريبية في مركز التأهيل، اما من ناحية الثقافة تطمح إدارة المؤسسة لفتح دورات اكثر ضمن العمل الثقافي.',
+                icon: FontAwesomeIcons.eye,
+              ),
+              _buildInfoCard(
+                title: 'رسالتنا',
+                content:
+                    'مجموعة من الشباب تسعى لنشر الوعي الثقافي وكذلك تلبية احتياجات المحتاجين والأيتام.',
+                icon: FontAwesomeIcons.handsHoldingChild,
+              ),
+            ],
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildInfoCard({
+    required String title,
+    required String content,
+    required IconData icon,
+  }) {
+    return Container(
+      width: 350,
+      padding: const EdgeInsets.all(32),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: const Color(0xFFE8F5E9),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: FaIcon(icon, size: 32, color: const Color(0xFF1B5E20)),
+          ),
+          const SizedBox(height: 24),
+          Text(
+            title,
+            style: GoogleFonts.cairo(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: const Color(0xFF1B5E20),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            content,
+            style: GoogleFonts.cairo(
+              fontSize: 16,
+              height: 1.6,
+              color: Colors.black87,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFinancialSection(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      color: Colors.white,
+      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
+      child: Column(
+        children: [
+          Text(
+            'المصاريف',
+            style: GoogleFonts.cairo(
+              fontSize: 36,
+              fontWeight: FontWeight.bold,
+              color: const Color(0xFF1B5E20),
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 16, bottom: 48),
+            width: 80,
+            height: 4,
+            decoration: BoxDecoration(
+              color: const Color(0xFF00C853),
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+          Container(
+            constraints: const BoxConstraints(maxWidth: 800),
+            padding: const EdgeInsets.all(24),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(color: Colors.grey.shade200),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.05),
+                  blurRadius: 20,
+                  offset: const Offset(0, 10),
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                _buildFinancialRow(
+                  'السنة',
+                  'المصاريف الخيرية',
+                  'المصاريف الثقافية',
+                  isHeader: true,
+                ),
+                const Divider(),
+                _buildFinancialRow('سنوات سابقة', '9,390,000', '971,000'),
+                _buildFinancialRow('2021', '73,087,500', '2,000,000'),
+                _buildFinancialRow('2022', '34,859,500', '7,834,000'),
+                _buildFinancialRow('2023', '49,435,500', '3,747,500'),
+                _buildFinancialRow('2024', '69,670,750', '12,465,750'),
+                _buildFinancialRow('2025', '92,479,750', '11,789,000'),
+                const Divider(height: 32, thickness: 2),
+                _buildFinancialRow(
+                  'المجموع الكلي',
+                  '328,923,000',
+                  '38,807,250',
+                  isHeader: true,
+                  color: Color(0xFFE8F5E9),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFinancialRow(
+    String year,
+    String charity,
+    String cultural, {
+    bool isHeader = false,
+    Color? color,
+  }) {
+    final style = GoogleFonts.cairo(
+      fontSize: isHeader ? 16 : 14,
+      fontWeight: isHeader ? FontWeight.bold : FontWeight.normal,
+      color: isHeader ? const Color(0xFF1B5E20) : Colors.black87,
+    );
+
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+      decoration: BoxDecoration(
+        color: color ?? Colors.transparent,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(year, style: style, textAlign: TextAlign.center),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text(charity, style: style, textAlign: TextAlign.center),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text(cultural, style: style, textAlign: TextAlign.center),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDonationSection(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      color: Colors.white,
+      padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
+      child: Column(
+        children: [
+          Text(
+            'ساهم معنا',
+            style: GoogleFonts.cairo(
+              fontSize: 36,
+              fontWeight: FontWeight.bold,
+              color: const Color(0xFF1B5E20),
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 16, bottom: 48),
+            width: 80,
+            height: 4,
+            decoration: BoxDecoration(
+              color: const Color(0xFF00C853),
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+          Wrap(
+            spacing: 32,
+            runSpacing: 32,
+            alignment: WrapAlignment.center,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              // Zain Cash Card
+              _buildDonationCard(
+                child: Column(
+                  children: [
+                    Image.asset(
+                      'assets/images/zain_logo.png',
+                      height: 60,
+                      fit: BoxFit.contain,
+                    ),
+                    const SizedBox(height: 16),
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SelectableText(
+                          '07842277961',
+                          style: GoogleFonts.cairo(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        IconButton(
+                          onPressed:
+                              () => _copyToClipboard(context, '07842277961'),
+                          icon: const Icon(Icons.copy, size: 20),
+                          tooltip: 'نسخ الرقم',
+                          style: IconButton.styleFrom(
+                            backgroundColor: Colors.grey.shade100,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 24),
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: Colors.grey.shade200),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.05),
+                            blurRadius: 10,
+                          ),
+                        ],
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.asset(
+                          'assets/images/zain_qr.jpg',
+                          width: 200,
+                          height: 200,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'امسح الباركود للدفع',
+                      style: GoogleFonts.cairo(
+                        fontSize: 14,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // MasterCard Card
+              _buildDonationCard(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const FaIcon(
+                      FontAwesomeIcons.ccMastercard,
+                      size: 60,
+                      color: Color(0xFFEB001B),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'MasterCard',
+                      style: GoogleFonts.cairo(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black54,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SelectableText(
+                          '7114067049',
+                          style: GoogleFonts.cairo(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87,
+                            letterSpacing: 2,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        IconButton(
+                          onPressed:
+                              () => _copyToClipboard(context, '7114067049'),
+                          icon: const Icon(Icons.copy, size: 20),
+                          tooltip: 'نسخ الرقم',
+                          style: IconButton.styleFrom(
+                            backgroundColor: Colors.grey.shade100,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 24),
+                    const Chip(
+                      label: Text('بطاقة مصرفية'),
+                      backgroundColor: Color(0xFFF5F7FA),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDonationCard({required Widget child}) {
+    return Container(
+      width: 350,
+      padding: const EdgeInsets.all(32),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: Colors.grey.shade100),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          ),
+        ],
+      ),
+      child: child,
     );
   }
 
@@ -277,6 +989,27 @@ class LandingPage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildSocialIcon(IconData icon, String url) {
+    return IconButton(
+      onPressed: () => _launchUrl(url),
+      icon: FaIcon(icon, color: Colors.white, size: 32),
+      style: IconButton.styleFrom(
+        hoverColor: Colors.white.withValues(alpha: 0.1),
+        highlightColor: Colors.white.withValues(alpha: 0.2),
+      ),
+    );
+  }
+
+  void _copyToClipboard(BuildContext context, String text) {
+    Clipboard.setData(ClipboardData(text: text));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('تم نسخ الرقم: $text', style: GoogleFonts.cairo()),
+        duration: const Duration(seconds: 2),
       ),
     );
   }
