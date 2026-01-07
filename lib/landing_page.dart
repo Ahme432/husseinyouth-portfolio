@@ -87,41 +87,42 @@ class _LandingPageState extends State<LandingPage> {
         final bool isMobile = constraints.maxWidth < 900;
 
         if (isMobile) {
-          // Mobile Layout: Stacked (Image Top, Text Bottom)
+          // Mobile Layout: Vertical 9:16 Image + Content
           return Container(
             color: const Color(0xFF00897B),
             child: Column(
               children: [
-                // 16:9 Image Container
-                Stack(
-                  children: [
-                    AspectRatio(
-                      aspectRatio: 16 / 9,
-                      child: Image.asset(
-                        'assets/images/hero_children_wide.png',
+                // 9:16 Vertical Image Container
+                AspectRatio(
+                  aspectRatio: 9 / 16, // Requested vertical ratio
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Image.asset(
+                        'assets/images/hero_children_real.jpg', // User's real image
                         fit: BoxFit.cover,
                       ),
-                    ),
-                    // Gradient overlay at bottom of image to blend
-                    Positioned(
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      height: 50,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Colors.transparent,
-                              const Color(0xFF00897B),
-                            ],
+                      // Gradient to blend bottom
+                      Positioned(
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        height: 100,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.transparent,
+                                const Color(0xFF00897B),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 // Text Content
                 Container(
@@ -223,34 +224,34 @@ class _LandingPageState extends State<LandingPage> {
             ),
           );
         } else {
-          // Desktop Layout: Full Width Background with Enforced Aspect Ratio (or min height)
-          // To strictly maintain 16:9 on desktop, we use AspectRatio wrapper
+          // Desktop Layout: Constrained Height (Avoid "Huge Place")
           return ClipPath(
             clipper: const _HeroClipper(),
-            child: AspectRatio(
-              aspectRatio: 16 / 9, // Enforce 16:9 on desktop
-              child: Container(
-                width: double.infinity,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/hero_children_wide.png'),
-                    fit: BoxFit.cover, // Will cover perfectly if ratio matches
-                    alignment: Alignment.center,
+            child: SizedBox(
+              height: 700, // Fixed max height to prevent "huge place" issue
+              width: double.infinity,
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Image.asset(
+                    'assets/images/hero_children_real.jpg',
+                    fit: BoxFit.cover,
+                    alignment: Alignment.center, // Center the image
                   ),
-                ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.centerRight,
-                      end: Alignment.centerLeft,
-                      colors: [
-                        const Color(0xFF00897B).withValues(alpha: 0.95),
-                        const Color(0xFF00897B).withValues(alpha: 0.7),
-                        const Color(0xFF00897B).withValues(alpha: 0.1),
-                      ],
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.centerRight,
+                        end: Alignment.centerLeft,
+                        colors: [
+                          const Color(0xFF00897B).withValues(alpha: 0.95),
+                          const Color(0xFF00897B).withValues(alpha: 0.7),
+                          const Color(0xFF00897B).withValues(alpha: 0.1),
+                        ],
+                      ),
                     ),
                   ),
-                  child: Center(
+                  Center(
                     // Center content vertically
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 60),
@@ -392,7 +393,7 @@ class _LandingPageState extends State<LandingPage> {
                       ),
                     ),
                   ),
-                ),
+                ],
               ),
             ),
           );
