@@ -763,17 +763,24 @@ class LandingPage extends StatelessWidget {
                             color: Colors.black87,
                           ),
                         ),
-                        const SizedBox(width: 8),
-                        IconButton(
-                          onPressed:
-                              () => _copyToClipboard(context, '07842277961'),
-                          icon: const Icon(Icons.copy, size: 20),
-                          tooltip: 'نسخ الرقم',
-                          style: IconButton.styleFrom(
-                            backgroundColor: Colors.grey.shade100,
-                          ),
-                        ),
                       ],
+                    ),
+                    const SizedBox(height: 16),
+                    ElevatedButton.icon(
+                      onPressed: () => _copyToClipboard(context, '07842277961'),
+                      icon: const Icon(Icons.copy, size: 18),
+                      label: Text(
+                        'نسخ الرقم',
+                        style: GoogleFonts.cairo(fontWeight: FontWeight.bold),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.pink,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 24,
+                          vertical: 12,
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 24),
                     Container(
@@ -815,10 +822,10 @@ class LandingPage extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const FaIcon(
-                      FontAwesomeIcons.ccMastercard,
-                      size: 60,
-                      color: Color(0xFFEB001B),
+                    Image.asset(
+                      'assets/images/mastercard_logo.png',
+                      height: 60,
+                      fit: BoxFit.contain,
                     ),
                     const SizedBox(height: 16),
                     Text(
@@ -831,7 +838,7 @@ class LandingPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     const SizedBox(height: 16),
-                    Row(
+                    Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -844,14 +851,24 @@ class LandingPage extends StatelessWidget {
                             letterSpacing: 2,
                           ),
                         ),
-                        const SizedBox(width: 8),
-                        IconButton(
+                        const SizedBox(height: 16),
+                        ElevatedButton.icon(
                           onPressed:
                               () => _copyToClipboard(context, '7114067049'),
-                          icon: const Icon(Icons.copy, size: 20),
-                          tooltip: 'نسخ الرقم',
-                          style: IconButton.styleFrom(
-                            backgroundColor: Colors.grey.shade100,
+                          icon: const Icon(Icons.copy, size: 18),
+                          label: Text(
+                            'نسخ الرقم',
+                            style: GoogleFonts.cairo(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFFEB001B),
+                            foregroundColor: Colors.white,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 24,
+                              vertical: 12,
+                            ),
                           ),
                         ),
                       ],
