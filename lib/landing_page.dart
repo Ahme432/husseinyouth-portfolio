@@ -83,23 +83,23 @@ class _LandingPageState extends State<LandingPage> {
   Widget _buildHeroSection(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        // Check if we are on a "mobile" width or if the aspect ratio would be too tall
-        final bool isMobile = constraints.maxWidth < 900;
+        // Breakpoint changed to 600px (Strictly Phones) to avoid huge vertical images on Tablets/Desktop
+        final bool isMobile = constraints.maxWidth < 600;
 
         if (isMobile) {
-          // Mobile Layout: Vertical 9:16 Image + Content
+          // Mobile Layout (Phones): Vertical 9:16 Image + Content
           return Container(
             color: const Color(0xFF00897B),
             child: Column(
               children: [
                 // 9:16 Vertical Image Container
                 AspectRatio(
-                  aspectRatio: 9 / 16, // Requested vertical ratio
+                  aspectRatio: 9 / 16, // Requested vertical ratio for phones
                   child: Stack(
                     fit: StackFit.expand,
                     children: [
                       Image.asset(
-                        'assets/images/hero_children_real.jpg', // User's real image
+                        'assets/images/hero_children_real.jpg',
                         fit: BoxFit.cover,
                       ),
                       // Gradient to blend bottom
@@ -136,7 +136,7 @@ class _LandingPageState extends State<LandingPage> {
                         'مؤسسة شباب الحسين',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.cairo(
-                          fontSize: 42,
+                          fontSize: 32, // Slightly smaller for better fit
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                           height: 1.1,
@@ -147,7 +147,7 @@ class _LandingPageState extends State<LandingPage> {
                         'يد عون للخير ونبض للأمل',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.cairo(
-                          fontSize: 24,
+                          fontSize: 20,
                           color: Colors.white.withValues(alpha: 0.9),
                           fontWeight: FontWeight.w600,
                         ),
@@ -157,7 +157,7 @@ class _LandingPageState extends State<LandingPage> {
                         'مؤسسة خيرية ثقافية تعمل على دعم عشرات العوائل المتعففة والأيتام وسد النقص لديهم في الجانبين الخيري والثقافي.',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.cairo(
-                          fontSize: 16,
+                          fontSize: 14,
                           color: Colors.white.withValues(alpha: 0.85),
                           height: 1.6,
                         ),
@@ -181,7 +181,7 @@ class _LandingPageState extends State<LandingPage> {
                             child: Text(
                               'تبرع الآن',
                               style: GoogleFonts.cairo(
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -201,7 +201,7 @@ class _LandingPageState extends State<LandingPage> {
                             child: Text(
                               'تواصل معنا',
                               style: GoogleFonts.cairo(
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -215,7 +215,7 @@ class _LandingPageState extends State<LandingPage> {
                 ClipPath(
                   clipper: const _HeroClipper(),
                   child: Container(
-                    height: 40,
+                    height: 30,
                     width: double.infinity,
                     color: Colors.white,
                   ),
@@ -224,12 +224,12 @@ class _LandingPageState extends State<LandingPage> {
             ),
           );
         } else {
-          // Desktop Layout: Constrained Height (Avoid "Huge Place")
+          // Desktop/Tablet Layout: Scalable Aspect Ratio (2.35:1 Cinematic)
+          // This ensures it shrinks when window width shrinks, answering "Why doesn't it shrink?"
           return ClipPath(
             clipper: const _HeroClipper(),
-            child: SizedBox(
-              height: 700, // Fixed max height to prevent "huge place" issue
-              width: double.infinity,
+            child: AspectRatio(
+              aspectRatio: 2.35 / 1, // Cinematic Widescreen Ratio
               child: Stack(
                 fit: StackFit.expand,
                 children: [
@@ -267,7 +267,8 @@ class _LandingPageState extends State<LandingPage> {
                                 Text(
                                   'مؤسسة شباب الحسين',
                                   style: GoogleFonts.cairo(
-                                    fontSize: 72,
+                                    fontSize:
+                                        64, // Scaled down slightly for better responsive fit
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white,
                                     height: 1.1,
@@ -286,7 +287,7 @@ class _LandingPageState extends State<LandingPage> {
                                 Text(
                                   'يد عون للخير ونبض للأمل',
                                   style: GoogleFonts.cairo(
-                                    fontSize: 40,
+                                    fontSize: 32,
                                     color: Colors.white,
                                     fontWeight: FontWeight.w600,
                                     shadows: [
@@ -302,11 +303,11 @@ class _LandingPageState extends State<LandingPage> {
                                 ),
                                 const SizedBox(height: 32),
                                 SizedBox(
-                                  width: 700,
+                                  width: 600,
                                   child: Text(
                                     'مؤسسة خيرية ثقافية تعمل على دعم عشرات العوائل المتعففة والأيتام وسد النقص لديهم في الجانبين الخيري والثقافي.',
                                     style: GoogleFonts.cairo(
-                                      fontSize: 22,
+                                      fontSize: 18,
                                       color: Colors.white.withValues(
                                         alpha: 0.95,
                                       ),
@@ -322,7 +323,7 @@ class _LandingPageState extends State<LandingPage> {
                                     ),
                                   ),
                                 ),
-                                const SizedBox(height: 56),
+                                const SizedBox(height: 48),
                                 Wrap(
                                   spacing: 24,
                                   runSpacing: 24,
@@ -349,7 +350,7 @@ class _LandingPageState extends State<LandingPage> {
                                       child: Text(
                                         'تبرع الآن',
                                         style: GoogleFonts.cairo(
-                                          fontSize: 20,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
@@ -378,7 +379,7 @@ class _LandingPageState extends State<LandingPage> {
                                       child: Text(
                                         'تواصل معنا',
                                         style: GoogleFonts.cairo(
-                                          fontSize: 20,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
