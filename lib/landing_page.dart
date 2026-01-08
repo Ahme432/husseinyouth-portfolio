@@ -467,14 +467,16 @@ class _LandingPageState extends State<LandingPage> {
                       size: 32,
                     ),
                     const SizedBox(width: 16),
-                    Text(
-                      'رابعاً: برنامج رمضان السنوي',
-                      style: GoogleFonts.cairo(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                    Flexible(
+                      child: Text(
+                        'رابعاً: برنامج رمضان السنوي',
+                        style: GoogleFonts.cairo(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
                     ),
                   ],
                 ),
@@ -619,6 +621,9 @@ class _LandingPageState extends State<LandingPage> {
             : const Color(0xFF00695C).withValues(alpha: 0.05);
 
     return Container(
+      constraints: const BoxConstraints(
+        maxWidth: 350,
+      ), // Prevent super wide items
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
         color: bgColor,
@@ -629,12 +634,16 @@ class _LandingPageState extends State<LandingPage> {
         children: [
           FaIcon(icon, size: 16, color: color),
           const SizedBox(width: 8),
-          Text(
-            text,
-            style: GoogleFonts.cairo(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: color,
+          Flexible(
+            child: Text(
+              text,
+              style: GoogleFonts.cairo(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: color,
+              ),
+              overflow: TextOverflow.visible, // Let it wrap naturally
+              textAlign: TextAlign.center,
             ),
           ),
         ],
