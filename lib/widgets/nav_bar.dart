@@ -94,10 +94,89 @@ class NavBar extends StatelessWidget {
               ],
             )
           else
-            IconButton(
-              onPressed: () {},
+            PopupMenuButton<int>(
               icon: const Icon(Icons.menu, color: Color(0xFF00897B)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              onSelected: (item) {
+                switch (item) {
+                  case 0:
+                    onHomeTap();
+                    break;
+                  case 1:
+                    onAboutTap();
+                    break;
+                  case 2:
+                    onProgramsTap();
+                    break;
+                  case 3:
+                    onAppsTap();
+                    break;
+                  case 4:
+                    onContactTap();
+                    break;
+                  case 5:
+                    onDonateTap();
+                    break;
+                }
+              },
+              itemBuilder:
+                  (context) => [
+                    _buildPopupMenuItem(0, 'الرئيسية', Icons.home),
+                    _buildPopupMenuItem(1, 'عن المؤسسة', Icons.info),
+                    _buildPopupMenuItem(2, 'البرامج', Icons.work),
+                    _buildPopupMenuItem(3, 'تطبيقاتنا', Icons.apps),
+                    _buildPopupMenuItem(4, 'تواصل معنا', Icons.phone),
+                    const PopupMenuDivider(),
+                    PopupMenuItem<int>(
+                      value: 5,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 8,
+                          horizontal: 16,
+                        ),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF00897B),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'تبرع الآن',
+                            style: GoogleFonts.cairo(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
             ),
+        ],
+      ),
+    );
+  }
+
+  PopupMenuItem<int> _buildPopupMenuItem(
+    int value,
+    String title,
+    IconData icon,
+  ) {
+    return PopupMenuItem<int>(
+      value: value,
+      child: Row(
+        children: [
+          Icon(icon, color: const Color(0xFF00897B), size: 20),
+          const SizedBox(width: 12),
+          Text(
+            title,
+            style: GoogleFonts.cairo(
+              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: Colors.black87,
+            ),
+          ),
         ],
       ),
     );
