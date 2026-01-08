@@ -310,6 +310,19 @@ class _LandingPageState extends State<LandingPage> {
                     'هو البرنامج الأكبر لدينا، حيث يوجد أكثر من 700 متبرع يقرأون القرآن شهريًا، ويهدون هذه القراءة للمتبرعين والمشاركين. يحصل المشتركون على 60 ختمة في الشهر الواحد. الاشتراك 4000 د.ع شهرياً.',
                 icon: FontAwesomeIcons.bookQuran,
                 color: const Color(0xFFE8F5E9),
+                action: Column(
+                  children: [
+                    const SizedBox(height: 16),
+                    OutlinedButton.icon(
+                      onPressed: () => _launchUrl('tel:07601199150'),
+                      icon: const Icon(Icons.phone),
+                      label: Text(
+                        'اشتراك مباشر',
+                        style: GoogleFonts.cairo(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               _buildFundingCard(
                 title: 'ثانياً: الصناديق',
