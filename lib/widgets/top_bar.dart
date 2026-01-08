@@ -32,12 +32,11 @@ class TopBar extends StatelessWidget {
                 text: '07601199150',
                 onTap: () => _launchUrl('tel:07601199150'),
               ),
-              // Email removed for debugging
-              // _buildTopBarItem(
-              //   icon: Icons.email,
-              //   text: 'hussein.youth@gmail.com',
-              //   onTap: () => _launchUrl('mailto:hussein.youth@gmail.com'),
-              // ),
+              _buildTopBarItem(
+                icon: Icons.email,
+                text: 'hussein.youth@gmail.com',
+                onTap: () => _launchUrl('mailto:hussein.youth@gmail.com'),
+              ),
             ],
           ),
 
