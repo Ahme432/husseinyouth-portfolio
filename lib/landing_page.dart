@@ -290,7 +290,7 @@ class _LandingPageState extends State<LandingPage> {
             constraints: const BoxConstraints(maxWidth: 800),
             margin: const EdgeInsets.only(bottom: 48),
             child: Text(
-              'وارد المؤسسة يعتمد على ٣ موارد رئيسية:',
+              'وارد المؤسسة يعتمد على ٤ موارد رئيسية:',
               style: GoogleFonts.cairo(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
