@@ -366,6 +366,188 @@ class _LandingPageState extends State<LandingPage> {
               ),
             ],
           ),
+          const SizedBox(height: 64),
+
+          // Monthly Rewards Section
+          Container(
+            constraints: const BoxConstraints(maxWidth: 900),
+            padding: const EdgeInsets.all(32),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(
+                color: const Color(0xFF00897B).withValues(alpha: 0.2),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF00897B).withValues(alpha: 0.05),
+                  blurRadius: 20,
+                  offset: const Offset(0, 8),
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                Text(
+                  'الثواب الشهري للمشتركين',
+                  style: GoogleFonts.cairo(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: const Color(0xFF00695C),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'يحصل المشتركون في (الختمات الشهرية - الصناديق - الاشتراكات الثابتة) خلال الشهر الواحد على:',
+                  style: GoogleFonts.cairo(fontSize: 16, color: Colors.black54),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 32),
+                Wrap(
+                  spacing: 24,
+                  runSpacing: 24,
+                  alignment: WrapAlignment.center,
+                  children: [
+                    _buildThawabItem(
+                      'أكثر من 60 ختمة قرآنية',
+                      FontAwesomeIcons.bookQuran,
+                    ),
+                    _buildThawabItem(
+                      'أكثر من 1500 زيارة عاشوراء',
+                      FontAwesomeIcons.personPraying,
+                    ),
+                    _buildThawabItem(
+                      'أكثر من 30,000 دعاء الفرج',
+                      FontAwesomeIcons.handsPraying,
+                    ),
+                    _buildThawabItem(
+                      'أكثر من 100,000 صلاة على محمد وآل محمد',
+                      FontAwesomeIcons.kaaba,
+                    ),
+                    _buildThawabItem(
+                      'ثواب الصدقة الشهرية',
+                      FontAwesomeIcons.handHoldingHeart,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: 64),
+
+          // Ramadan Program Section
+          Container(
+            constraints: const BoxConstraints(maxWidth: 900),
+            padding: const EdgeInsets.all(32),
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [Color(0xFF00695C), Color(0xFF004D40)],
+              ),
+              borderRadius: BorderRadius.circular(24),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0xFF004D40).withValues(alpha: 0.3),
+                  blurRadius: 20,
+                  offset: const Offset(0, 10),
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const FaIcon(
+                      FontAwesomeIcons.moon,
+                      color: Colors.amber,
+                      size: 32,
+                    ),
+                    const SizedBox(width: 16),
+                    Text(
+                      'رابعاً: برنامج رمضان السنوي',
+                      style: GoogleFonts.cairo(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+                Text(
+                  'هو برنامج يُطلق سنويًا فقط في رمضان المبارك، وهو الأضخم لدعم العوائل المتعففة والأيتام لبقية السنة. يشترك فيه أكثر من 3 آلاف مشترك، ويحصل المشتركون على أكثر من 500 ختمة خلال الشهر، مع عدة ثوابات أخرى.',
+                  style: GoogleFonts.cairo(
+                    fontSize: 18,
+                    height: 1.6,
+                    color: Colors.white.withValues(alpha: 0.9),
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 48),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 12,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: Text(
+                    '✨ ثواب المشتركين في برنامج رمضان لعام 2024 ✨',
+                    style: GoogleFonts.cairo(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.amber,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 32),
+                Wrap(
+                  spacing: 24,
+                  runSpacing: 24,
+                  alignment: WrapAlignment.center,
+                  children: [
+                    _buildThawabItem(
+                      'أكثر من 650 ختمة قرآنية',
+                      FontAwesomeIcons.bookOpen,
+                      isDark: true,
+                    ),
+                    _buildThawabItem(
+                      'أكثر من 2,600 زيارة عاشوراء',
+                      FontAwesomeIcons.mosque,
+                      isDark: true,
+                    ),
+                    _buildThawabItem(
+                      'أكثر من 650 مجلس ندبة',
+                      FontAwesomeIcons.peopleGroup,
+                      isDark: true,
+                    ),
+                    _buildThawabItem(
+                      'أكثر من 65,000 صلاة على النبي',
+                      FontAwesomeIcons.kaaba,
+                      isDark: true,
+                    ),
+                    _buildThawabItem(
+                      'أكثر من 19,500 دعاء الفرج',
+                      FontAwesomeIcons.handsPraying,
+                      isDark: true,
+                    ),
+                    _buildThawabItem(
+                      'أكثر من 650 دعاء لدفع الأشرار',
+                      FontAwesomeIcons.shieldHalved,
+                      isDark: true,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -424,6 +606,37 @@ class _LandingPageState extends State<LandingPage> {
             textAlign: TextAlign.center,
           ),
           if (action != null) action,
+        ],
+      ),
+    );
+  }
+
+  Widget _buildThawabItem(String text, IconData icon, {bool isDark = false}) {
+    final color = isDark ? Colors.white : const Color(0xFF00695C);
+    final bgColor =
+        isDark
+            ? Colors.white.withValues(alpha: 0.1)
+            : const Color(0xFF00695C).withValues(alpha: 0.05);
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      decoration: BoxDecoration(
+        color: bgColor,
+        borderRadius: BorderRadius.circular(50),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FaIcon(icon, size: 16, color: color),
+          const SizedBox(width: 8),
+          Text(
+            text,
+            style: GoogleFonts.cairo(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: color,
+            ),
+          ),
         ],
       ),
     );
