@@ -6,6 +6,7 @@ class NavBar extends StatelessWidget {
   final VoidCallback onHomeTap;
   final VoidCallback onAboutTap;
   final VoidCallback onProgramsTap;
+  final VoidCallback onAppsTap;
   final VoidCallback onContactTap;
   final VoidCallback onDonateTap;
 
@@ -14,6 +15,7 @@ class NavBar extends StatelessWidget {
     required this.onHomeTap,
     required this.onAboutTap,
     required this.onProgramsTap,
+    required this.onAppsTap,
     required this.onContactTap,
     required this.onDonateTap,
   });
@@ -67,6 +69,7 @@ class NavBar extends StatelessWidget {
                 _NavLink(title: 'الرئيسية', onTap: onHomeTap),
                 _NavLink(title: 'عن المؤسسة', onTap: onAboutTap),
                 _NavLink(title: 'البرامج', onTap: onProgramsTap),
+                _NavLink(title: 'تطبيقاتنا', onTap: onAppsTap),
                 _NavLink(title: 'تواصل معنا', onTap: onContactTap),
                 const SizedBox(width: 24),
                 ElevatedButton(

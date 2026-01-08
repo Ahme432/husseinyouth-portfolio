@@ -22,6 +22,7 @@ class _LandingPageState extends State<LandingPage> {
   final GlobalKey _programsKey = GlobalKey();
   final GlobalKey _contactKey = GlobalKey();
   final GlobalKey _donateKey = GlobalKey();
+  final GlobalKey _appsKey = GlobalKey();
 
   void _scrollToSection(GlobalKey key) {
     if (key.currentContext != null) {
@@ -55,6 +56,7 @@ class _LandingPageState extends State<LandingPage> {
                   onHomeTap: () => _scrollToSection(_homeKey),
                   onAboutTap: () => _scrollToSection(_aboutKey),
                   onProgramsTap: () => _scrollToSection(_programsKey),
+                  onAppsTap: () => _scrollToSection(_appsKey),
                   onContactTap: () => _scrollToSection(_contactKey),
                   onDonateTap: () => _scrollToSection(_donateKey),
                 ),
@@ -111,7 +113,7 @@ class _LandingPageState extends State<LandingPage> {
                 height: 400,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.white.withOpacity(0.05),
+                  color: Colors.white.withValues(alpha: 0.05),
                 ),
               ),
             ),
@@ -123,7 +125,7 @@ class _LandingPageState extends State<LandingPage> {
                 height: 300,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.white.withOpacity(0.05),
+                  color: Colors.white.withValues(alpha: 0.05),
                 ),
               ),
             ),
@@ -135,7 +137,7 @@ class _LandingPageState extends State<LandingPage> {
                 height: 100,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.white.withOpacity(0.03),
+                  color: Colors.white.withValues(alpha: 0.03),
                 ),
               ),
             ),
@@ -154,7 +156,7 @@ class _LandingPageState extends State<LandingPage> {
                     Icon(
                       FontAwesomeIcons.handHoldingHeart,
                       size: 64,
-                      color: Colors.white.withOpacity(0.9),
+                      color: Colors.white.withValues(alpha: 0.9),
                     ),
                     const SizedBox(height: 32),
 
@@ -171,7 +173,7 @@ class _LandingPageState extends State<LandingPage> {
                           Shadow(
                             offset: const Offset(0, 4),
                             blurRadius: 20,
-                            color: Colors.black.withOpacity(0.2),
+                            color: Colors.black.withValues(alpha: 0.2),
                           ),
                         ],
                       ),
@@ -180,11 +182,11 @@ class _LandingPageState extends State<LandingPage> {
 
                     // Subheadline
                     Text(
-                      'يد عون للخير ونبض للأمل',
+                      'يدعون للخير ونبض للأمل',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.cairo(
                         fontSize: 24,
-                        color: Colors.white.withOpacity(0.95),
+                        color: Colors.white.withValues(alpha: 0.95),
                         fontWeight: FontWeight.w600,
                         letterSpacing: 1.2,
                       ),
@@ -199,7 +201,7 @@ class _LandingPageState extends State<LandingPage> {
                         textAlign: TextAlign.center,
                         style: GoogleFonts.cairo(
                           fontSize: 18,
-                          color: Colors.white.withOpacity(0.85),
+                          color: Colors.white.withValues(alpha: 0.85),
                           height: 1.6,
                         ),
                       ),
@@ -335,6 +337,19 @@ class _LandingPageState extends State<LandingPage> {
                     'يشارك بعض الإخوة في برنامج معين بشكل مستمر، وتخصص هذه التبرعات لسد احتياجات العوائل من نفس المبلغ المخصص لهذا البرنامج.',
                 icon: FontAwesomeIcons.handHoldingHand,
                 color: const Color(0xFFFFF3E0),
+                action: Column(
+                  children: [
+                    const SizedBox(height: 16),
+                    OutlinedButton.icon(
+                      onPressed: () => _launchUrl('tel:07601199150'),
+                      icon: const Icon(Icons.phone),
+                      label: Text(
+                        'اشتراك مباشر',
+                        style: GoogleFonts.cairo(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -433,6 +448,7 @@ class _LandingPageState extends State<LandingPage> {
     ];
 
     return Container(
+      key: _appsKey,
       width: double.infinity,
       color: Colors.white,
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
@@ -686,7 +702,7 @@ class _LandingPageState extends State<LandingPage> {
       padding: const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
       child: Column(
         children: [
-          _buildSectionHeader('المصاريف'),
+          _buildSectionHeader('الصرفيات'),
           Container(
             constraints: const BoxConstraints(maxWidth: 800),
             padding: const EdgeInsets.all(24),
@@ -706,8 +722,8 @@ class _LandingPageState extends State<LandingPage> {
               children: [
                 _buildFinancialRow(
                   'السنة',
-                  'المصاريف الخيرية',
-                  'المصاريف الثقافية',
+                  'الصرفيات الخيرية',
+                  'الصرفيات الثقافية',
                   isHeader: true,
                 ),
                 const Divider(),
